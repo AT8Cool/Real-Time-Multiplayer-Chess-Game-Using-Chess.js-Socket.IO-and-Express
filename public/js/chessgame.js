@@ -1,4 +1,6 @@
-const socket = io();
+const socket = io(window.location.origin, {
+    transports: ["websocket"]
+});
 const chess = new Chess();
 const boardElement = document.querySelector(".chessboard");
 
@@ -82,25 +84,24 @@ const handleMove = (source,target) => {
 };
 
 const getPieceUnicode = (piece) => {
-
     const uniCodePieces = {
-        p: '♙',  // White Pawn
-        P: '♟',  // Black Pawn
-        r: '♜',  // Black Rook
-        R: '♖',  // White Rook
-        n: '♞',  // Black Knight
-        N: '♘',  // White Knight
-        b: '♝',  // Black Bishop
-        B: '♗',  // White Bishop
-        q: '♛',  // Black Queen
-        Q: '♕',  // White Queen
-        k: '♚',  // Black King
-        K: '♔'   // White King
+        p: '♟',
+        r: '♜',
+        n: '♞',
+        b: '♝',
+        q: '♛',
+        k: '♚',
+        P: '♙',
+        R: '♖',
+        N: '♘',
+        B: '♗',
+        Q: '♕',
+        K: '♔'
+    };
 
-    
-};
-return uniCodePieces[piece.type] || "";
-
+    return uniCodePieces[
+        piece.color === 'w' ? piece.type.toUpperCase() : piece.type
+    ];
 };
 
 socket.on("playerRole", function(role){

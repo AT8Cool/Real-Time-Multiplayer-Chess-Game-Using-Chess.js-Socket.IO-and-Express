@@ -7,7 +7,12 @@ const path = require("path");
 const app = express();
 
 const server = http.createServer(app);
-const io = socket(server);
+const io = socket(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
 const chess = new Chess();
 let players = {};
